@@ -1,19 +1,73 @@
+/*!
+# RunCmd
+
+This library is used for extending `Execute` which is extending `Command` in order to execute commands more easily.  Especially made for simple shell commands returning an exit code as a number, stdout and stderr as strings.
+
+## Usage
+
+```rust
+use std::process::Command;
+
+use runcmd::RunCmd;
+
+RunCmd::new("echo \"Hello World\"").execute();
+
+```
+
+### verbose()
+Will print the ins and outs to stdout
+
+```rust
+RunCmd::new("echo \"Hello World\"")
+    .verbose()
+    .execute();
+```
+
+### shell()
+
+Sets the executor to run the command in a shell using the underlying Execute::shell rather than Execute::command.
+
+```rust
+RunCmd::new("echo \"Hello World\"")
+    .shell()
+    .execute();
+```
+
+### executep()
+
+Runs the command, without returning anything, but panics if the command doesn't succeed.  Useful in only the most trival circumstances.
+
+```rust
+RunCmd::new("echo \"Hello World\"")
+    .shell()
+    .executep();
+```
+
+### execute()
+
+Runs the command, returning a RunCmdOutput.
+
+```rust
+let retval: RunCmdOutput = RunCmd::new("echo \"Hello World\"").execute();
+```
+
+It returns the following.
+```rust
+pub struct RunCmdOutput {
+    pub cmd: String,
+    pub stdout: String,
+    pub stderr: String,
+    pub exitcode: i32
+}
+```
+*/
+
 extern crate execute;
 
 use std::process::Stdio;
 
 use execute::{Execute, command, shell};
 
-/// Class to make it easy to run shell commands.
-///
-/// # Examples
-///
-/// ```
-/// use crate::runcmd::RunCmd;
-///
-/// RunCmd::new("echo \"Hello World\"").execute();
-///
-/// ```
 #[derive(Clone)]
 pub struct RunCmdOutput {
     pub cmd: String,
