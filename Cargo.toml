@@ -1,0 +1,16 @@
+[package]
+name = "runcmd"
+version = "0.1.0"
+authors = ["Jared Hulbert <jaredeh@gmail.com>"]
+edition = "2021"
+repository = "https://github.com/jaredeh/runcmd"
+keywords = ["execute", "process", "command"]
+categories = ["parser-implementations"]
+description = "This library is used for extending `Execute` which is extending `Command` in order to execute commands more easily.  Especially made for simple shell commands returning an exit code as a number, stdout and stderr as strings."
+readme = "README.md"
+license = "MIT"
+include = ["src/**/*", "Cargo.toml", "README.md", "LICENSE"]
+
+
+[dependencies]
+execute = "0.2.11"
